@@ -1,0 +1,87 @@
+/* Custom PrimeNG Table Styling for Service Summary */
+.custom-table-container {
+    
+  .custom-service-table {
+    border: none !important;
+    
+    // Table structure
+    .p-datatable-table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    
+    // Header styling
+    .p-datatable-thead > tr > th {
+      background: rgb(249 250 251) !important;
+      border: none !important;
+      border-bottom: 1px solid rgb(229 231 235) !important;
+      color: rgb(55 65 81) !important;
+      font-weight: 600 !important;
+      font-size: 0.75rem !important;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.5rem !important;
+      
+      .dark & {
+        background: rgba(55, 65, 81, 0.5) !important;
+        border-bottom-color: rgb(75 85 99) !important;
+        color: rgb(209 213 219) !important;
+      }
+      
+      // Sort icons
+      .p-sortable-column-icon {
+        color: rgb(156 163 175);
+        font-size: 0.875rem;
+        margin-left: 0.5rem;
+      }
+    }
+    
+    // Body styling
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid rgb(243 244 246) !important;
+      transition: all 0.2s ease;
+      
+      .dark & {
+        border-bottom-color: rgb(75 85 99) !important;
+      }
+      
+      &:hover {
+        background: rgb(249 250 251) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        
+        .dark & {
+          background: rgba(55, 65, 81, 0.5) !important;
+        }
+      }
+      
+      > td {
+        border: none !important;
+        padding: 1rem 1.5rem !important;
+        vertical-align: middle;
+        
+        // First cell special styling
+        &:first-child {
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+        }
+        
+        // Last cell special styling
+        &:last-child {
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+        }
+      }
+    }
+  }
+}
+
+:ng-deep{
+    .p-datatable-tbody {
+        tr{
+            td{
+                text-align: center;
+            }
+        }
+    }
+}

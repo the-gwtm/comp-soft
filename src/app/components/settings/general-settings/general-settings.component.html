@@ -1,0 +1,227 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a routerLink="/"
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors">
+                    <i class="ri-home-line text-base mr-2"></i>
+                    Home
+                </a>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <i class="ri-arrow-right-s-line text-gray-400 mx-1"></i>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Settings</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Settings</h1>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage your application preferences and configurations</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <!-- Sidebar Navigation -->
+        <div class="lg:col-span-1">
+            <nav class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-2">
+                <a href="#general"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-indigo-600 bg-indigo-50 dark:bg-indigo-900/20 dark:text-indigo-400 font-medium transition-all duration-200 mb-1">
+                    <i class="ri-settings-3-line text-lg"></i>
+                    <span>General</span>
+                </a>
+                <a href="#business"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white font-medium transition-all duration-200 mb-1">
+                    <i class="ri-building-line text-lg"></i>
+                    <span>Business Info</span>
+                </a>
+                <a href="#appearance"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white font-medium transition-all duration-200 mb-1">
+                    <i class="ri-palette-line text-lg"></i>
+                    <span>Appearance</span>
+                </a>
+                <a href="#notifications"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white font-medium transition-all duration-200 mb-1">
+                    <i class="ri-notification-line text-lg"></i>
+                    <span>Notifications</span>
+                </a>
+                <a href="#security"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white font-medium transition-all duration-200 mb-1">
+                    <i class="ri-shield-check-line text-lg"></i>
+                    <span>Security</span>
+                </a>
+                <a href="#backup"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white font-medium transition-all duration-200">
+                    <i class="ri-database-2-line text-lg"></i>
+                    <span>Backup & Restore</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-3 space-y-6">
+            <!-- General Settings -->
+            <div id="general" class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1">General Settings</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Configure basic application settings</p>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Application Name
+                            </label>
+                            <input type="text" value="CompSoft"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Language
+                            </label>
+                            <select
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Tamil</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Currency
+                            </label>
+                            <select
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                                <option>INR (₹)</option>
+                                <option>USD ($)</option>
+                                <option>EUR (€)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Date Format
+                            </label>
+                            <select
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                                <option>DD/MM/YYYY</option>
+                                <option>MM/DD/YYYY</option>
+                                <option>YYYY-MM-DD</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Business Information -->
+            <div id="business" class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Business Information</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Update your business details</p>
+
+                <form class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Business Name
+                            </label>
+                            <input type="text" placeholder="Computer Service Center"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Phone Number
+                            </label>
+                            <input type="tel" placeholder="+91 98765 43210"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Email
+                            </label>
+                            <input type="email" placeholder="business@example.com"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                Address
+                            </label>
+                            <textarea rows="3" placeholder="Enter business address"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                GST Number
+                            </label>
+                            <input type="text" placeholder="22AAAAA0000A1Z5"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                                PAN Number
+                            </label>
+                            <input type="text" placeholder="ABCDE1234F"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Appearance -->
+            <div id="appearance" class="bg-white dark:bg-gray-800 rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-300">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-1">Appearance</h2>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Customize the look and feel of your application</p>
+
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                            Theme Mode
+                        </label>
+                        <div class="grid grid-cols-3 gap-4">
+                            <button
+                                class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 transition-all duration-200 hover:shadow-md">
+                                <i class="ri-sun-line text-2xl"></i>
+                                <span class="text-sm font-medium">Light</span>
+                            </button>
+                            <button
+                                class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-200 hover:shadow-md">
+                                <i class="ri-moon-line text-2xl"></i>
+                                <span class="text-sm font-medium">Dark</span>
+                            </button>
+                            <button
+                                class="flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-200 hover:shadow-md">
+                                <i class="ri-computer-line text-2xl"></i>
+                                <span class="text-sm font-medium">System</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                            Accent Color
+                        </label>
+                        <div class="flex gap-3">
+                            <button class="w-10 h-10 rounded-full bg-indigo-600 ring-2 ring-offset-2 ring-indigo-600 dark:ring-offset-gray-800 hover:scale-110 transition-transform"></button>
+                            <button class="w-10 h-10 rounded-full bg-blue-600 hover:ring-2 hover:ring-offset-2 hover:ring-blue-600 dark:hover:ring-offset-gray-800 hover:scale-110 transition-all"></button>
+                            <button class="w-10 h-10 rounded-full bg-purple-600 hover:ring-2 hover:ring-offset-2 hover:ring-purple-600 dark:hover:ring-offset-gray-800 hover:scale-110 transition-all"></button>
+                            <button class="w-10 h-10 rounded-full bg-green-600 hover:ring-2 hover:ring-offset-2 hover:ring-green-600 dark:hover:ring-offset-gray-800 hover:scale-110 transition-all"></button>
+                            <button class="w-10 h-10 rounded-full bg-red-600 hover:ring-2 hover:ring-offset-2 hover:ring-red-600 dark:hover:ring-offset-gray-800 hover:scale-110 transition-all"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="flex justify-end gap-4">
+                <button
+                    class="px-6 py-3 text-sm font-semibold text-gray-700 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-500 transition-all duration-200">
+                    Reset
+                </button>
+                <button
+                    class="px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-xl hover:from-indigo-700 hover:to-indigo-800 focus:ring-4 focus:ring-indigo-300 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                    Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

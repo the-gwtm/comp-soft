@@ -1,0 +1,170 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8">
+    <!-- Breadcrumb -->
+    <nav class="flex mb-8" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+                <a routerLink="/"
+                    class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white">
+                    <svg class="w-3 h-3 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <a routerLink="/sales"
+                        class="ml-1 text-sm font-medium text-gray-700 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white md:ml-2">Sales</a>
+                </div>
+            </li>
+            <li aria-current="page">
+                <div class="flex items-center">
+                    <svg class="w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 6 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 9 4-4-4-4" />
+                    </svg>
+                    <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">Add Sale</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-3xl mx-auto">
+        <div
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-shadow duration-300">
+
+            <!-- Header -->
+            <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-700 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800/50 dark:to-gray-800">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Add New Sale</h1>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Record a new service transaction.</p>
+            </div>
+
+            <!-- Form -->
+            <form [formGroup]="saleForm" (ngSubmit)="saveSale()" class="p-6 space-y-6">
+
+                <!-- Loading State -->
+                <div *ngIf="isLoading()" class="flex justify-center py-8">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+                </div>
+
+                <ng-container *ngIf="!isLoading()">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                        <!-- Service Type -->
+                        <div class="sm:col-span-2">
+                            <label for="serviceType"
+                                class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Service
+                                Type</label>
+                            <select id="serviceType" formControlName="serviceType"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
+                                <option [ngValue]="null" disabled>Select a service</option>
+                                <option *ngFor="let type of serviceTypes()" [value]="type.id">{{ type.name }}</option>
+                            </select>
+                            <div *ngIf="saleForm.get('serviceType')?.touched && saleForm.get('serviceType')?.invalid"
+                                class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                <span *ngIf="saleForm.get('serviceType')?.errors?.['required']">Service type is
+                                    required.</span>
+                            </div>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div>
+                            <label for="quantity"
+                                class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Quantity</label>
+                            <input type="number" id="quantity" formControlName="quantity" min="1"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                                placeholder="1">
+                            <div *ngIf="saleForm.get('quantity')?.touched && saleForm.get('quantity')?.invalid"
+                                class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                <span *ngIf="saleForm.get('quantity')?.errors?.['required']">Quantity is
+                                    required.</span>
+                                <span *ngIf="saleForm.get('quantity')?.errors?.['min']">Minimum quantity is 1.</span>
+                            </div>
+                        </div>
+
+                        <!-- Rate -->
+                        <div>
+                            <label for="rate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Rate
+                                (₹)</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <span class="text-gray-500 dark:text-gray-400">₹</span>
+                                </div>
+                                <input type="number" id="rate" formControlName="rate" min="0"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-8 p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                                    placeholder="0.00">
+                            </div>
+                            <div *ngIf="saleForm.get('rate')?.touched && saleForm.get('rate')?.invalid"
+                                class="mt-1 text-sm text-red-600 dark:text-red-400">
+                                <span *ngIf="saleForm.get('rate')?.errors?.['required']">Rate is required.</span>
+                                <span *ngIf="saleForm.get('rate')?.errors?.['min']">Rate cannot be negative.</span>
+                            </div>
+                        </div>
+
+                        <!-- Total Amount -->
+                        <div class="sm:col-span-2">
+                            <label for="total"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Total
+                                Amount</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <span class="text-gray-500 dark:text-gray-400 font-bold">₹</span>
+                                </div>
+                                <input type="number" id="total" formControlName="total" readonly
+                                    class="bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 text-gray-900 text-xl font-bold rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-8 p-3 cursor-not-allowed dark:from-gray-600 dark:to-gray-700 dark:border-gray-500 dark:text-white shadow-inner">
+                            </div>
+                        </div>
+
+                        <!-- Notes -->
+                        <div class="sm:col-span-2">
+                            <label for="notes"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Additional
+                                Notes</label>
+                            <textarea id="notes" rows="4" formControlName="notes"
+                                class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-xl border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500"
+                                placeholder="Add any specific details about this sale..."></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div
+                        class="flex flex-col sm:flex-row items-center justify-end gap-4 mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
+                        <button type="button" (click)="cancel()"
+                            class="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-gray-700 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:border-gray-500 dark:focus:ring-gray-700 transition-all duration-200">
+                            Cancel
+                        </button>
+
+                        <button type="button" (click)="resetForm()"
+                            class="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-gray-700 bg-white border-2 border-gray-300 rounded-xl hover:bg-gray-50 hover:border-gray-400 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:border-gray-500 dark:focus:ring-gray-700 transition-all duration-200">
+                            Reset
+                        </button>
+
+                        <button type="submit" [disabled]="saleForm.invalid || isSaving()"
+                            class="w-full sm:w-auto px-6 py-3 text-sm font-semibold text-white bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-xl hover:from-indigo-700 hover:to-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:from-indigo-600 dark:to-indigo-700 dark:hover:from-indigo-700 dark:hover:to-indigo-800 dark:focus:ring-indigo-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                            <svg *ngIf="isSaving()" class="animate-spin h-4 w-4 text-white"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                            {{ isSaving() ? 'Saving...' : 'Save Sale' }}
+                        </button>
+                    </div>
+                </ng-container>
+
+            </form>
+        </div>
+    </div>
+</div>

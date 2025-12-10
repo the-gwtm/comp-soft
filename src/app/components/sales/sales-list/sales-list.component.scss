@@ -1,0 +1,231 @@
+/* Custom PrimeNG Table Styling */
+.custom-table-container {
+  .custom-sales-table {
+    border: none !important;
+    
+    // Table structure
+    .p-datatable-table {
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+    
+    // Header styling
+    .p-datatable-thead > tr > th {
+      background: rgb(249 250 251) !important;
+      border: none !important;
+      border-bottom: 1px solid rgb(229 231 235) !important;
+      color: rgb(55 65 81) !important;
+      font-weight: 600 !important;
+      font-size: 0.75rem !important;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 1rem 1.5rem !important;
+      
+      .dark & {
+        background: rgba(55, 65, 81, 0.5) !important;
+        border-bottom-color: rgb(75 85 99) !important;
+        color: rgb(209 213 219) !important;
+      }
+      
+      // Sort icons
+      .p-sortable-column-icon {
+        color: rgb(156 163 175);
+        font-size: 0.875rem;
+        margin-left: 0.5rem;
+      }
+    }
+    
+    // Body styling
+    .p-datatable-tbody > tr {
+      border-bottom: 1px solid rgb(243 244 246) !important;
+      transition: all 0.2s ease;
+      
+      .dark & {
+        border-bottom-color: rgb(75 85 99) !important;
+      }
+      
+      &:hover {
+        background: rgb(249 250 251) !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        
+        .dark & {
+          background: rgba(55, 65, 81, 0.5) !important;
+        }
+      }
+      
+      > td {
+        border: none !important;
+        padding: 1rem 1.5rem !important;
+        vertical-align: middle;
+        
+        // First cell (Date) special styling
+        &:first-child {
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+        }
+        
+        // Last cell (Actions) special styling
+        &:last-child {
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+        }
+      }
+    }
+    
+    // Pagination styling
+    .p-paginator {
+      background: rgb(249 250 251) !important;
+      border: none !important;
+      padding: 1rem 1.5rem !important;
+      border-top: 1px solid rgb(229 231 235) !important;
+      
+      .dark & {
+        background: rgba(55, 65, 81, 0.5) !important;
+        border-top-color: rgb(75 85 99) !important;
+      }
+      
+      .p-paginator-current {
+        background: none !important;
+        border: none !important;
+        color: rgb(107 114 128) !important;
+        font-size: 0.875rem;
+        
+        .dark & {
+          color: rgb(156 163 175) !important;
+        }
+      }
+      
+      .p-paginator-pages {
+        .p-paginator-page {
+          background: white !important;
+          border: 1px solid rgb(229 231 235) !important;
+          color: rgb(55 65 81) !important;
+          border-radius: 0.5rem !important;
+          margin: 0 0.125rem;
+          min-width: 2.5rem;
+          height: 2.5rem;
+          transition: all 0.2s ease;
+          
+          .dark & {
+            background: rgb(55 65 81) !important;
+            border-color: rgb(75 85 99) !important;
+            color: rgb(209 213 219) !important;
+          }
+          
+          &:hover {
+            background: rgb(99 102 241) !important;
+            border-color: rgb(99 102 241) !important;
+            color: white !important;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          }
+          
+          &.p-highlight {
+            background: rgb(99 102 241) !important;
+            border-color: rgb(99 102 241) !important;
+            color: white !important;
+            box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+          }
+        }
+      }
+      
+      .p-dropdown {
+        border: 1px solid rgb(229 231 235) !important;
+        border-radius: 0.5rem !important;
+        
+        .dark & {
+          border-color: rgb(75 85 99) !important;
+          background: rgb(55 65 81) !important;
+        }
+        
+        .p-dropdown-label {
+          color: rgb(55 65 81) !important;
+          font-size: 0.875rem;
+          
+          .dark & {
+            color: rgb(209 213 219) !important;
+          }
+        }
+      }
+      
+      .p-paginator-first,
+      .p-paginator-prev,
+      .p-paginator-next,
+      .p-paginator-last {
+        background: white !important;
+        border: 1px solid rgb(229 231 235) !important;
+        color: rgb(55 65 81) !important;
+        border-radius: 0.5rem !important;
+        width: 2.5rem;
+        height: 2.5rem;
+        margin: 0 0.125rem;
+        transition: all 0.2s ease;
+        
+        .dark & {
+          background: rgb(55 65 81) !important;
+          border-color: rgb(75 85 99) !important;
+          color: rgb(209 213 219) !important;
+        }
+        
+        &:hover:not(.p-disabled) {
+          background: rgb(99 102 241) !important;
+          border-color: rgb(99 102 241) !important;
+          color: white !important;
+          transform: translateY(-1px);
+        }
+        
+        &.p-disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+// Additional utility classes
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Custom scrollbar for table
+.custom-table-container {
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgb(243 244 246);
+    border-radius: 4px;
+    
+    .dark & {
+      background: rgb(75 85 99);
+    }
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgb(156 163 175);
+    border-radius: 4px;
+    
+    &:hover {
+      background: rgb(107 114 128);
+    }
+  }
+}
+
+// ::ng-deep{
+//     .p-datatable-tbody {
+//         tr{
+//             td{
+//                 text-align: center;
+//             }
+//             th{
+//                 text-align: center;
+//             }
+//         }
+//     }
+// }
