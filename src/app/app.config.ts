@@ -3,7 +3,8 @@ import { provideRouter } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-import theme from '@primeuix/themes/lara'
+import theme from '@primeuix/themes/lara';
+import { MessageService } from 'primeng/api';
 
 import { routes } from './app.routes';
 
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: theme
       }
-    })
+    }),
+    MessageService
   ]
 };

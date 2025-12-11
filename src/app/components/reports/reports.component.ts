@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, Cha
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ReportsService, ReportsData } from '../../../services/reports.service';
+import { ReportsService, ReportsData } from '../../services/reports.service';
 import {
     Chart,
     ChartConfiguration,

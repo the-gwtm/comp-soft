@@ -4,6 +4,7 @@ import { ThemeService } from '../theme.service';
 import { CommonModule } from '@angular/common';
 
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,27 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email = '';
+  username = '';
   password = '';
   rememberMe = false;
 
-  constructor(public themeService: ThemeService, private router: Router) { }
+  constructor(
+    public themeService: ThemeService, 
+    private router: Router,
+    private apiService: ApiService
+  ) { }
 
   onSubmit(): void {
+    if(this.username.trim() === '' || this.password.trim() === '') {
+      this.apiService.showMessage('error', 'Error', 'Please enter both username and password.');
+      return;
+    }else if(this.username !== 'admin' || this.password !== 'admin') {
+      this.apiService.showMessage('error', 'Error', 'Invalid username or password.');
+      return;
+    }
     // Placeholder for authentication logic
     console.log('Login submitted', {
-      email: this.email,
+      username: this.username,
       password: this.password,
       rememberMe: this.rememberMe
     });

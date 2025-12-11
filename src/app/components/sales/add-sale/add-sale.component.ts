@@ -7,6 +7,7 @@ import { SalesService } from '../../../services/sales.service';
 import { ServiceType } from '../../../models/service-type.model';
 import { Sale } from '../../../models/sale.model';
 import { finalize } from 'rxjs/operators';
+import { ApiService } from '../../../services/api.service';
 
 @Component({
   selector: 'app-add-sale',
@@ -25,6 +26,8 @@ export class AddSaleComponent implements OnInit {
   serviceTypes = signal<ServiceType[]>([]);
   isLoading = signal<boolean>(false);
   isSaving = signal<boolean>(false);
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -108,14 +111,12 @@ export class AddSaleComponent implements OnInit {
       )
       .subscribe({
         next: () => {
-          // Navigate back to sales list or show success
-          // For now, let's navigate to dashboard or a sales list if it existed.
-          // User said "Cancel button (navigate back to Sales List)". I assume '/sales' exists or I should route somewhere.
-          // I'll route to '/sales' for now.
-          this.router.navigate(['/sales']);
+          this.apiService.showMessage('success', 'Success', 'Sale record saved successfully.');
+          this.resetForm();
         },
         error: (err) => {
           console.error('Error saving sale', err);
+          this.apiService.showMessage('error', 'Error', 'Failed to save sale record.');
           // Handle error (toast notification etc)
         }
       });

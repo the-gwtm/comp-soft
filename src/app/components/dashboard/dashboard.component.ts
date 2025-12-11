@@ -29,6 +29,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     dashboardData$!: Observable<DashboardData>;
     dashboardData: DashboardData | null = null;
     isLoading = true;
+    currentDate = new Date();
 
     // Chart instances for proper cleanup
     private dailyRevenueChart?: Chart;

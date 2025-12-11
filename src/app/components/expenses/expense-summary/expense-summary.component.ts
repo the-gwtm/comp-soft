@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -8,6 +8,7 @@ import { Expense, ExpenseCategory } from '../../../models/expense.model';
 import { ExpenseCategorySummary, ExpenseKPI } from '../../../models/expense-summary.model';
 import { startWith } from 'rxjs';
 import { TableModule } from 'primeng/table';
+import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-expense-summary',
@@ -20,6 +21,11 @@ export class ExpenseSummaryComponent implements OnInit {
   private fb = inject(FormBuilder);
   private expenseService = inject(ExpenseService);
   private destroyRef = inject(DestroyRef);
+  private cdr = inject(ChangeDetectorRef);
+
+  // Chart instances
+  private categoryDistributionChart?: Chart;
+  private expenseTrendChart?: Chart;
 
   filterForm!: FormGroup;
   isLoading = signal<boolean>(true);
@@ -47,6 +53,9 @@ export class ExpenseSummaryComponent implements OnInit {
   private allExpenses: Expense[] = [];
 
   ngOnInit(): void {
+    // Register Chart.js components
+    Chart.register(...registerables);
+    
     this.initFilterForm();
     this.loadData();
     this.setupFilters();
@@ -152,6 +161,12 @@ export class ExpenseSummaryComponent implements OnInit {
     }
 
     this.calculateMetrics(filtered);
+    
+    // Update charts after data changes
+    setTimeout(() => {
+      this.createCharts();
+      this.cdr.detectChanges();
+    }, 100);
   }
 
   getCategoryColor(category: string): string {
@@ -223,5 +238,267 @@ export class ExpenseSummaryComponent implements OnInit {
     summaries.sort((a, b) => b.totalAmount - a.totalAmount);
 
     this.categorySummaries.set(summaries);
+  }
+
+  private createCharts(): void {
+    this.createCategoryDistributionChart();
+    this.createExpenseTrendChart();
+  }
+
+  private createCategoryDistributionChart(): void {
+    const canvas = document.getElementById('categoryDistributionChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    // Destroy existing chart
+    if (this.categoryDistributionChart) {
+      this.categoryDistributionChart.destroy();
+    }
+
+    const summaries = this.categorySummaries();
+    if (summaries.length === 0) return;
+
+    const ctx = canvas.getContext('2d')!;
+    
+    const config: ChartConfiguration = {
+      type: 'doughnut',
+      data: {
+        labels: summaries.map(s => s.category),
+        datasets: [{
+          data: summaries.map(s => s.totalAmount),
+          backgroundColor: [
+            'rgba(239, 68, 68, 0.8)',    // Red
+            'rgba(245, 158, 11, 0.8)',   // Amber
+            'rgba(139, 92, 246, 0.8)',   // Purple
+            'rgba(16, 185, 129, 0.8)',   // Green
+            'rgba(249, 115, 22, 0.8)',   // Orange
+            'rgba(99, 102, 241, 0.8)',   // Indigo
+            'rgba(107, 114, 128, 0.8)',  // Gray
+            'rgba(236, 72, 153, 0.8)',   // Pink
+            'rgba(14, 165, 233, 0.8)',   // Sky
+            'rgba(34, 197, 94, 0.8)'     // Emerald
+          ],
+          borderColor: 'rgba(255, 255, 255, 0.2)',
+          borderWidth: 2,
+          hoverBackgroundColor: [
+            'rgba(239, 68, 68, 1)',
+            'rgba(245, 158, 11, 1)',
+            'rgba(139, 92, 246, 1)',
+            'rgba(16, 185, 129, 1)',
+            'rgba(249, 115, 22, 1)',
+            'rgba(99, 102, 241, 1)',
+            'rgba(107, 114, 128, 1)',
+            'rgba(236, 72, 153, 1)',
+            'rgba(14, 165, 233, 1)',
+            'rgba(34, 197, 94, 1)'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              padding: 20,
+              usePointStyle: true,
+              font: {
+                size: 12
+              }
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const value = context.parsed;
+                const total = summaries.reduce((sum, s) => sum + s.totalAmount, 0);
+                const percentage = ((value / total) * 100).toFixed(1);
+                return `${context.label}: ₹${value.toLocaleString()} (${percentage}%)`;
+              }
+            }
+          }
+        },
+        // cutout: '60%'
+      }
+    };
+
+    this.categoryDistributionChart = new Chart(ctx, config);
+  }
+
+  private createExpenseTrendChart(): void {
+    const canvas = document.getElementById('expenseTrendChart') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    // Destroy existing chart
+    if (this.expenseTrendChart) {
+      this.expenseTrendChart.destroy();
+    }
+
+    const ctx = canvas.getContext('2d')!;
+    
+    // Get trend data from filtered expenses
+    const trendData = this.getExpenseTrendData();
+    
+    const config: ChartConfiguration = {
+      type: 'line',
+      data: {
+        labels: trendData.labels,
+        datasets: [{
+          label: 'Daily Expenses',
+          data: trendData.expenses,
+          borderColor: 'rgba(239, 68, 68, 1)',
+          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          borderWidth: 3,
+          fill: true,
+          tension: 0.4,
+          pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8
+        }, {
+          label: 'Expense Count',
+          data: trendData.count,
+          borderColor: 'rgba(245, 158, 11, 1)',
+          backgroundColor: 'rgba(245, 158, 11, 0.1)',
+          borderWidth: 3,
+          fill: false,
+          tension: 0.4,
+          pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          pointRadius: 6,
+          pointHoverRadius: 8,
+          yAxisID: 'y1'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          intersect: false,
+          mode: 'index'
+        },
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              usePointStyle: true,
+              padding: 20
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            titleColor: '#fff',
+            bodyColor: '#fff',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderWidth: 1,
+            callbacks: {
+              label: (context:any) => {
+                if (context.datasetIndex === 0) {
+                  return `Expenses: ₹${context.parsed.y.toLocaleString()}`;
+                } else {
+                  return `Count: ${context.parsed.y} expenses`;
+                }
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              color: 'rgba(0, 0, 0, 0.05)'
+            },
+            ticks: {
+              font: {
+                size: 11
+              }
+            }
+          },
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            title: {
+              display: true,
+              text: 'Expense Amount (₹)'
+            },
+            grid: {
+              color: 'rgba(0, 0, 0, 0.05)'
+            },
+            ticks: {
+              callback: function(value) {
+                return '₹' + Number(value).toLocaleString();
+              }
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            title: {
+              display: true,
+              text: 'Expense Count'
+            },
+            grid: {
+              drawOnChartArea: false
+            }
+          }
+        }
+      }
+    };
+
+    this.expenseTrendChart = new Chart(ctx, config);
+  }
+
+  private getExpenseTrendData(): { labels: string[], expenses: number[], count: number[] } {
+    const filters = this.filterForm.value;
+    const fromDate = filters.dateFrom ? new Date(filters.dateFrom) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const toDate = filters.dateTo ? new Date(filters.dateTo) : new Date();
+    
+    // Calculate the number of days between dates
+    const daysDiff = Math.ceil((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+    
+    const dailyData = new Map<string, { expenses: number, count: number }>();
+    
+    // Initialize all days with zero values
+    for (let i = 0; i <= daysDiff; i++) {
+      const date = new Date(fromDate);
+      date.setDate(date.getDate() + i);
+      const dateStr = date.toISOString().split('T')[0];
+      dailyData.set(dateStr, { expenses: 0, count: 0 });
+    }
+    
+    // Aggregate expense data by day
+    this.allExpenses.forEach(expense => {
+      const expenseDate = new Date(expense.expenseDate);
+      if (expenseDate >= fromDate && expenseDate <= toDate) {
+        const dateStr = expenseDate.toISOString().split('T')[0];
+        const existing = dailyData.get(dateStr) || { expenses: 0, count: 0 };
+        existing.expenses += expense.amount;
+        existing.count += 1;
+        dailyData.set(dateStr, existing);
+      }
+    });
+    
+    const sortedEntries = Array.from(dailyData.entries()).sort(([a], [b]) => a.localeCompare(b));
+    
+    return {
+      labels: sortedEntries.map(([date]) => {
+        const d = new Date(date);
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      }),
+      expenses: sortedEntries.map(([, data]) => data.expenses),
+      count: sortedEntries.map(([, data]) => data.count)
+    };
+  }
+
+  ngOnDestroy(): void {
+    if (this.categoryDistributionChart) {
+      this.categoryDistributionChart.destroy();
+    }
+    if (this.expenseTrendChart) {
+      this.expenseTrendChart.destroy();
+    }
   }
 }

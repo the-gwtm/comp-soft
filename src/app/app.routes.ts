@@ -45,7 +45,7 @@ export const routes: Routes = [
     },
     {
         path: 'reports',
-        loadComponent: () => import('./components/reports/reports/reports.component').then(m => m.ReportsComponent)
+        loadComponent: () => import('./components/reports/reports.component').then(m => m.ReportsComponent)
     },
     {
         path: 'settings',
