@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.router.events.subscribe((event: any) => {
       if (event instanceof NavigationEnd) {
-        this.showSideBar = event.url !== '/login';
+        this.showSideBar = event.url !== '/login' && event.url !== '/';
       }
 
     });

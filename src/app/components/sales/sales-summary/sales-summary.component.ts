@@ -10,11 +10,12 @@ import { SalesKPI, ServiceSummary } from '../../../models/service-summary.model'
 import { combineLatest, startWith } from 'rxjs';
 import { TableModule } from 'primeng/table';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-sales-summary',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule, NgSelectComponent],
   templateUrl: './sales-summary.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

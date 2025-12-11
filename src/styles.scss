@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @use "tailwindcss";
+
 @import 'remixicon/fonts/remixicon.css';
 @import "primeicons/primeicons.css";
+@import "@ng-select/ng-select/themes/default.theme.css";
+// @import "~@ng-select/ng-select/themes/default.theme.css";
 
 @layer utilities {
     /* Glass Morphism Effects */
@@ -145,6 +148,23 @@
     .table-modern th,
     .table-modern td {
         @apply px-6 py-4;
+    }
+
+    /* ng-select Custom Styles */
+    .ng-select-custom {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500;
+    }
+    
+    .ng-select-custom .ng-select-container {
+        @apply bg-transparent border-none p-3;
+    }
+    
+    .ng-select-custom .ng-arrow-wrapper {
+        @apply w-6 pr-2;
+    }
+    
+    .ng-select-custom .ng-clear-wrapper {
+        @apply pr-2;
     }
 }
 

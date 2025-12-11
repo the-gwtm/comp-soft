@@ -77,11 +77,14 @@
             <!-- Service Type -->
             <div>
                 <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Service Type</label>
-                <select formControlName="serviceType"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    <option [ngValue]="null">All Services</option>
-                    <option *ngFor="let type of serviceTypes()" [value]="type.id">{{ type.name }}</option>
-                </select>
+                <ng-select formControlName="serviceType"
+                    class="ng-select-custom"
+                    placeholder="All Services"
+                    [clearable]="true"
+                    [items]="serviceTypes()"
+                    bindLabel="name"
+                    bindValue="id">
+                </ng-select>
             </div>
 
             <!-- Search -->

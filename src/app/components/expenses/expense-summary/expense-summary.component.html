@@ -78,11 +78,12 @@
             <!-- Category -->
             <div>
                 <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Category</label>
-                <select formControlName="category"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                    <option [ngValue]="null">All Categories</option>
-                    <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
-                </select>
+                <ng-select formControlName="category"
+                    class="ng-select-custom"
+                    placeholder="All Categories"
+                    [clearable]="true"
+                    [items]="categories">
+                </ng-select>
             </div>
 
             <!-- Search -->

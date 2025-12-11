@@ -10,11 +10,12 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-inventory-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule, ButtonModule, RippleModule, TooltipModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule, ButtonModule, RippleModule, TooltipModule, NgSelectComponent],
   templateUrl: './inventory-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

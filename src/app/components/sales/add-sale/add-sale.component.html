@@ -64,11 +64,14 @@
                             <label for="serviceType"
                                 class="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">Service
                                 Type</label>
-                            <select id="serviceType" formControlName="serviceType"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500 transition-all duration-200 hover:border-gray-400 dark:hover:border-gray-500">
-                                <option [ngValue]="null" disabled>Select a service</option>
-                                <option *ngFor="let type of serviceTypes()" [value]="type.id">{{ type.name }}</option>
-                            </select>
+                            <ng-select id="serviceType" formControlName="serviceType"
+                                class="ng-select-custom"
+                                placeholder="Select a service"
+                                [clearable]="false"
+                                [items]="serviceTypes()"
+                                bindLabel="name"
+                                bindValue="id">
+                            </ng-select>
                             <div *ngIf="saleForm.get('serviceType')?.touched && saleForm.get('serviceType')?.invalid"
                                 class="mt-1 text-sm text-red-600 dark:text-red-400">
                                 <span *ngIf="saleForm.get('serviceType')?.errors?.['required']">Service type is

@@ -8,11 +8,12 @@ import { ServiceType } from '../../../models/service-type.model';
 import { Sale } from '../../../models/sale.model';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../../services/api.service';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-add-sale',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, NgSelectModule],
   templateUrl: './add-sale.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -9,6 +9,8 @@ import {
     ChartType,
     registerables
 } from 'chart.js';
+import { NgSelectComponent } from '@ng-select/ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Register Chart.js components
 Chart.register(...registerables);
@@ -16,7 +18,7 @@ Chart.register(...registerables);
 @Component({
     selector: 'app-reports',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, NgSelectComponent, FormsModule, ReactiveFormsModule],
     templateUrl: './reports.component.html',
     styleUrls: ['./reports.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -28,6 +30,11 @@ export class ReportsComponent implements OnInit, AfterViewInit, OnDestroy {
     reportsData$!: Observable<ReportsData>;
     reportsData: ReportsData | null = null;
     isLoading = true;
+
+    // ng-select properties
+    reportTypes = ['all', 'sales', 'expense', 'inventory', 'profit-loss'];
+    selectedReportType = 'all';
+    selectedPeriod = '30';
 
     // Chart instances for proper cleanup
     private revenueExpenseChart?: Chart;

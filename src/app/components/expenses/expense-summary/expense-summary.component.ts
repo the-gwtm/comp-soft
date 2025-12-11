@@ -9,11 +9,12 @@ import { ExpenseCategorySummary, ExpenseKPI } from '../../../models/expense-summ
 import { startWith } from 'rxjs';
 import { TableModule } from 'primeng/table';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import { NgSelectComponent } from '@ng-select/ng-select';
 
 @Component({
   selector: 'app-expense-summary',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, TableModule, NgSelectComponent],
   templateUrl: './expense-summary.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
